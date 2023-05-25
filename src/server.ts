@@ -10,13 +10,13 @@ import logger from 'jet-logger';
 
 import 'express-async-errors';
 
-import { apiRouter } from '@src/controller/root';
-
 import { environmentVariable } from '@src/utility/constant/environment-variable';
 import { HttpStatusCode } from '@src/utility/constant/http-status-code';
+import { Router } from 'express';
 
 import { NodeEnvironment } from '@src/utility/constant/node-environment';
 import { RouteError } from './utility/route-error';
+import { userRouter } from './user/controller/user-controller';
 
 export const app = express();
 
@@ -36,8 +36,9 @@ if (environmentVariable.nodeEnv === NodeEnvironment.Production) {
   app.use(helmet());
 }
 
-// Add APIs, must be after middleware
+export const apiRouter = Router();
 app.use('/api', apiRouter);
+apiRouter.use('/users', userRouter);
 
 // Add error handler
 app.use((

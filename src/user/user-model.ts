@@ -17,17 +17,7 @@ export interface IUser {
   lastName: string;
   email: string;
   phone: string;
-  pwdHash?: string;
-  role?: UserRoles;
 }
-
-export interface ISessionUser {
-  id: number;
-  email: string;
-  name: string;
-  role: IUser['role'];
-}
-
 
 // **** Functions **** //
 
@@ -39,8 +29,6 @@ export function new_(
   lastName?: string,
   email?: string,
   phone?: string,
-  role?: UserRoles,
-  pwdHash?: string,
   id?: number, // id last cause usually set by db
 ): IUser {
   return {
@@ -48,9 +36,7 @@ export function new_(
     firstName: (firstName ?? ''),
     lastName: (lastName ?? ''),
     email: (email ?? ''),
-    phone: (phone ?? ''),
-    role: (role ?? UserRoles.Standard),
-    pwdHash: (pwdHash ?? ''),
+    phone: (phone ?? '')
   };
 }
 
@@ -64,7 +50,7 @@ export function from(param: object): IUser {
   }
   // Get user instance
   const p = param as IUser;
-  return new_(p.firstName, p.lastName, p.email, p.phone, p.role, p.pwdHash, p.id);
+  return new_(p.firstName, p.lastName, p.email, p.phone, p.id);
 }
 
 /**
@@ -80,5 +66,16 @@ export function isUser(arg: unknown): boolean {
     'lastName' in arg &&
     'phone' in arg &&
     'role' in arg
+  );
+}
+
+export function isUserValidForAdd(arg: any): boolean {
+  return (
+    !!arg &&
+    typeof arg === 'object' &&
+    arg['firstName'] &&
+    arg['lastName'] &&
+    arg['email'] &&
+    arg['phone']
   );
 }

@@ -1,11 +1,8 @@
 import { HttpStatusCode } from '@src/utility/constant/http-status-code';
 
-import {_delete as del, addOne, search, updateOne} from '@src/service/user-service';
-import { isUser } from '@src/model/user';
+import {_delete as del, addOne, search, updateOne} from '@src/user/user-service';
 import { Router } from 'express';
-import jetValidator from 'jet-validator';
-
-const validate = jetValidator();
+import { addUserValidator } from './user-validator';
 
 export const userRouter = Router();
 
@@ -19,9 +16,9 @@ userRouter.get(
 
 userRouter.post(
   '/add',
-  validate(['user', isUser]),
+  addUserValidator[0],
   async function(req, res) {
-    const { user } = req.body;
+    const user = req.body;
     await addOne(user);
     return res.status(HttpStatusCode.CREATED).end();
   }
@@ -29,7 +26,7 @@ userRouter.post(
 
 userRouter.put(
   '/update',
-  validate(['user', isUser]),
+  // validate(['user', isUser]),
   async function(req, res) {
     const { user } = req.body;
     await updateOne(user);
@@ -39,7 +36,7 @@ userRouter.put(
 
 userRouter.delete(
   '/delete/:id',
-  validate(['id', 'number', 'params']),
+  // validate(['id', 'number', 'params']),
   async function(req, res) {
     const id = +req.params.id;
     await del(id);

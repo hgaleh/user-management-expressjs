@@ -1,7 +1,7 @@
-import { IUser } from '@src/model/user';
+import { IUser } from '@src/user/user-model';
 import { getRandomNumber } from '@src/utility/get-random-number';
-import {openDb, saveDb} from './mock-orm';
-import { IQueryUser } from '@src/controller/user/user-route-type';
+import {openDb, saveDb} from '../db/mock-orm';
+import { IQueryUser } from '@src/user/controller/user-controller-type';
 
 // **** Functions **** //
 
@@ -78,3 +78,12 @@ export async function delete_(id: number): Promise<void> {
     }
   }
 }
+
+export async function exists(fieldName: 'id' | 'email' | 'phone', value: string): Promise<boolean> {
+  const db = await openDb();
+  const emailIndex = db.users.findIndex(user => {
+    return user[fieldName] == value
+  });
+  return emailIndex >= 0;
+}
+
