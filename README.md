@@ -1,43 +1,29 @@
-## About
+## First install
 
-This project was created with [express-generator-typescript](https://github.com/seanpmaxwell/express-generator-typescript).
+### `npm install`
 
-
-## Available Scripts
+## Then run it
 
 ### `npm run dev`
 
-Run the server in development mode.
+## Use curl to test it
 
-### `npm test`
+To get all users
 
-Run all unit-tests with hot-reloading.
+`curl -X GET http://localhost:3000/api/users/search`
 
-### `npm test -- --testFile="name of test file" (i.e. --testFile=Users).`
+To search and filter users
 
-Run a single unit-test.
+`curl -X GET http://localhost:3000/api/users/search?firstName=&lastName=&phone=&email=`
 
-### `npm run test:no-reloading`
+To add a user
 
-Run all unit-tests without hot-reloading.
+`curl -X POST http://localhost:3000/api/users/add --header 'Content-Type: application/json' --data '{}'`
 
-### `npm run lint`
+To update a user
 
-Check for linting errors.
+`curl -X PUT http://localhost:3000/api/users/update --header 'Content-Type: application/json' --data '{}'`
 
-### `npm run build`
+To delete a user
 
-Build the project for production.
-
-### `npm start`
-
-Run the production build (Must be built first).
-
-### `npm start -- --env="name of env file" (default is production).`
-
-Run production build with a different env file.
-
-
-## Additional Notes
-
-- If `npm run dev` gives you issues with bcrypt on MacOS you may need to run: `npm rebuild bcrypt --build-from-source`. 
+`curl -X DELETE http://localhost:3000/api/users/delete/:id`

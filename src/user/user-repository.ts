@@ -3,35 +3,19 @@ import { getRandomNumber } from '@src/utility/get-random-number';
 import {openDb, saveDb} from '../db/mock-orm';
 import { IQueryUser } from '@src/user/controller/user-controller-type';
 
-// **** Functions **** //
 
-/**
- * Get one user.
- */
-export async function getOne(email: string): Promise<IUser | null> {
-  const db = await openDb();
-  for (const user of db.users) {
-    if (user.email === email) {
-      return user;
-    }
-  }
-  return null;
-}
-
-/**
- * See if a user with the given id exists.
- */
-export async function persists(id: number): Promise<boolean> {
+export async function findById(id: number): Promise<IUser | void> {
   const db = await openDb();
   for (const user of db.users) {
     if (user.id === id) {
-      return true;
+      return user;
     }
   }
-  return false;
 }
+
+
 /**
- * Get all users.
+ * Search all users.
  */
 export async function search(query: IQueryUser): Promise<IUser[]> {
   const db = await openDb();
@@ -43,9 +27,6 @@ export async function search(query: IQueryUser): Promise<IUser[]> {
   });
 }
 
-/**
- * Add one user.
- */
 export async function add(user: IUser): Promise<void> {
   const db = await openDb();
   user.id = getRandomNumber();
@@ -53,9 +34,6 @@ export async function add(user: IUser): Promise<void> {
   return saveDb(db);
 }
 
-/**
- * Update a user.
- */
 export async function update(user: IUser): Promise<void> {
   const db = await openDb();
   for (let i = 0; i < db.users.length; i++) {
@@ -66,9 +44,6 @@ export async function update(user: IUser): Promise<void> {
   }
 }
 
-/**
- * Delete one user.
- */
 export async function delete_(id: number): Promise<void> {
   const db = await openDb();
   for (let i = 0; i < db.users.length; i++) {
@@ -79,11 +54,10 @@ export async function delete_(id: number): Promise<void> {
   }
 }
 
-export async function exists(fieldName: 'id' | 'email' | 'phone', value: string): Promise<boolean> {
+export async function exists(fieldName: 'id' | 'email' | 'phone', value: string | number): Promise<boolean> {
   const db = await openDb();
   const emailIndex = db.users.findIndex(user => {
     return user[fieldName] == value
   });
   return emailIndex >= 0;
 }
-
