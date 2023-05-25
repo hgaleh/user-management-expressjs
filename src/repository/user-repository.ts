@@ -1,5 +1,5 @@
 import { IUser } from '@src/model/user';
-import { getRandomInt } from '@src/utility/misc';
+import { getRandomNumber } from '@src/utility/get-random-number';
 import {openDb, saveDb} from './mock-orm';
 import { IQueryUser } from '@src/controller/user/user-route-type';
 
@@ -48,7 +48,7 @@ export async function search(query: IQueryUser): Promise<IUser[]> {
  */
 export async function add(user: IUser): Promise<void> {
   const db = await openDb();
-  user.id = getRandomInt();
+  user.id = getRandomNumber();
   db.users.push(user);
   return saveDb(db);
 }

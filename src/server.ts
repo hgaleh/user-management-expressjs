@@ -12,11 +12,11 @@ import 'express-async-errors';
 
 import { apiRouter } from '@src/controller/root';
 
-import { envVars } from '@src/utility/constant/env-vars';
-import { HttpStatusCodes } from '@src/utility/constant/http-status-codes';
+import { environmentVariable } from '@src/utility/constant/environment-variable';
+import { HttpStatusCode } from '@src/utility/constant/http-status-code';
 
-import { NodeEnvs } from '@src/utility/constant/misc';
-import { RouteError } from './utility/classes';
+import { NodeEnvironment } from '@src/utility/constant/node-environment';
+import { RouteError } from './utility/route-error';
 
 export const app = express();
 
@@ -24,15 +24,15 @@ export const app = express();
 // Basic middleware
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(cookieParser(envVars.CookieProps.Secret));
+app.use(cookieParser(environmentVariable.cookieProps.secret));
 
 // Show routes called in console during development
-if (envVars.NodeEnv === NodeEnvs.Dev) {
+if (environmentVariable.nodeEnv === NodeEnvironment.Dev) {
   app.use(morgan('dev'));
 }
 
 // Security
-if (envVars.NodeEnv === NodeEnvs.Production) {
+if (environmentVariable.nodeEnv === NodeEnvironment.Production) {
   app.use(helmet());
 }
 
@@ -46,10 +46,10 @@ app.use((
   res: Response,
   next: NextFunction,
 ) => {
-  if (envVars.NodeEnv !== NodeEnvs.Test) {
+  if (environmentVariable.nodeEnv !== NodeEnvironment.Test) {
     logger.err(err, true);
   }
-  let status = HttpStatusCodes.BAD_REQUEST;
+  let status = HttpStatusCode.BAD_REQUEST;
   if (err instanceof RouteError) {
     status = err.status;
   }

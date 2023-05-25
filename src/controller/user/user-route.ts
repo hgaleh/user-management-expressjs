@@ -1,4 +1,4 @@
-import { HttpStatusCodes } from '@src/utility/constant/http-status-codes';
+import { HttpStatusCode } from '@src/utility/constant/http-status-code';
 
 import {_delete as del, addOne, search, updateOne} from '@src/service/user-service';
 import { isUser } from '@src/model/user';
@@ -13,7 +13,7 @@ userRouter.get(
   '/search',
   async function(req, res) {
     const users = await search(req.query);
-    return res.status(HttpStatusCodes.OK).json({ users });
+    return res.status(HttpStatusCode.OK).json({ users });
   }
 );
 
@@ -23,7 +23,7 @@ userRouter.post(
   async function(req, res) {
     const { user } = req.body;
     await addOne(user);
-    return res.status(HttpStatusCodes.CREATED).end();
+    return res.status(HttpStatusCode.CREATED).end();
   }
 );
 
@@ -33,7 +33,7 @@ userRouter.put(
   async function(req, res) {
     const { user } = req.body;
     await updateOne(user);
-    return res.status(HttpStatusCodes.OK).end();
+    return res.status(HttpStatusCode.OK).end();
   }
 );
 
@@ -43,6 +43,6 @@ userRouter.delete(
   async function(req, res) {
     const id = +req.params.id;
     await del(id);
-    return res.status(HttpStatusCodes.OK).end();
+    return res.status(HttpStatusCode.OK).end();
   }
 );
