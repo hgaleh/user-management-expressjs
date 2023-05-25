@@ -16,15 +16,10 @@ import { envVars } from '@src/utility/constant/env-vars';
 import { HttpStatusCodes } from '@src/utility/constant/http-status-codes';
 
 import { NodeEnvs } from '@src/utility/constant/misc';
-import { RouteError } from '@src/other/classes';
-
-
-// **** Variables **** //
+import { RouteError } from './utility/classes';
 
 export const app = express();
 
-
-// **** Setup **** //
 
 // Basic middleware
 app.use(express.json());
@@ -49,7 +44,6 @@ app.use((
   err: Error,
   _: Request,
   res: Response,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: NextFunction,
 ) => {
   if (envVars.NodeEnv !== NodeEnvs.Test) {
