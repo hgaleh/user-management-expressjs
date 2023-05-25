@@ -1,4 +1,4 @@
-import './pre-start'; // Must be the first import
+import './setup-dotenv'; // Must be the first import
 import logger from 'jet-logger';
 
 import { environmentVariable } from '@src/utility/constant/environment-variable';
