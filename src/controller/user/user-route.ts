@@ -1,18 +1,15 @@
-import {HttpStatusCodes} from '@src/constants/http-status-codes';
+import { HttpStatusCodes } from '@src/utility/constant/http-status-codes';
 
-import {_delete as del, addOne, search, updateOne} from '@src/services/user-service';
-import { IUser, isUser } from '@src/models/user';
-import { IReq, IRes } from '../other/express/misc';
+import {_delete as del, addOne, search, updateOne} from '@src/service/user-service';
+import { IUser, isUser } from '@src/model/user';
 import { Router } from 'express';
 import jetValidator from 'jet-validator';
+import { IReq, IRes } from '@src/utility/types';
 
 const validate = jetValidator();
 
-// ** Add UserRouter ** //
-
 export const userRouter = Router();
 
-// Get all users
 userRouter.get(
   '/search',
   async function(req: IReq, res: IRes) {
@@ -21,7 +18,6 @@ userRouter.get(
   }
 );
 
-// Add one user
 userRouter.post(
   '/add',
   validate(['user', isUser]),
@@ -32,7 +28,6 @@ userRouter.post(
   }
 );
 
-// Update one user
 userRouter.put(
   '/update',
   validate(['user', isUser]),
@@ -43,7 +38,6 @@ userRouter.put(
   }
 );
 
-// Delete one user
 userRouter.delete(
   '/delete/:id',
   validate(['id', 'number', 'params']),

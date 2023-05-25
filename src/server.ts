@@ -10,12 +10,12 @@ import logger from 'jet-logger';
 
 import 'express-async-errors';
 
-import { apiRouter } from '@src/routes/api';
+import { apiRouter } from '@src/controller/root';
 
-import { envVars } from '@src/constants/env-vars';
-import { HttpStatusCodes } from '@src/constants/http-status-codes';
+import { envVars } from '@src/utility/constant/env-vars';
+import { HttpStatusCodes } from '@src/utility/constant/http-status-codes';
 
-import { NodeEnvs } from '@src/constants/misc';
+import { NodeEnvs } from '@src/utility/constant/misc';
 import { RouteError } from '@src/other/classes';
 
 

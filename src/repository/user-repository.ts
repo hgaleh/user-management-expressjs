@@ -1,7 +1,7 @@
-import { IUser } from '@src/models/user';
-import { getRandomInt } from '@src/util/misc';
+import { IUser } from '@src/model/user';
+import { getRandomInt } from '@src/utility/misc';
 import {openDb, saveDb} from './mock-orm';
-import { IQueryUser } from '@src/routes/types/types';
+import { IQueryUser } from '@src/controller/user/user-route-type';
 
 // **** Functions **** //
 
