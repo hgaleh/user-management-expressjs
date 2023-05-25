@@ -34,7 +34,7 @@ export interface ISessionUser {
 /**
  * Create new User.
  */
-function new_(
+export function new_(
   firstName?: string,
   lastName?: string,
   email?: string,
@@ -57,7 +57,7 @@ function new_(
 /**
  * Get user instance from object.
  */
-function from(param: object): IUser {
+export function from(param: object): IUser {
   // Check is user
   if (!isUser(param)) {
     throw new Error(INVALID_CONSTRUCTOR_PARAM);
@@ -70,7 +70,7 @@ function from(param: object): IUser {
 /**
  * See if the param meets criteria to be a user.
  */
-function isUser(arg: unknown): boolean {
+export function isUser(arg: unknown): boolean {
   return (
     !!arg &&
     typeof arg === 'object' &&
@@ -82,12 +82,3 @@ function isUser(arg: unknown): boolean {
     'role' in arg
   );
 }
-
-
-// **** Export default **** //
-
-export default {
-  new: new_,
-  from,
-  isUser,
-} as const;

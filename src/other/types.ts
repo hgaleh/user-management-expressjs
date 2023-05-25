@@ -1,7 +1,7 @@
 import * as e from 'express';
 import { Query } from 'express-serve-static-core';
 
-import { ISessionUser } from '@src/models/User';
+import { ISessionUser } from '@src/models/user';
 
 
 export interface IReq<T = void> extends e.Request {

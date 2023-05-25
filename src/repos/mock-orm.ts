@@ -2,7 +2,7 @@
 
 import jsonfile from 'jsonfile';
 
-import { IUser } from '@src/models/User';
+import { IUser } from '@src/models/user';
 
 
 // **** Variables **** //
@@ -22,21 +22,13 @@ interface IDb {
 /**
  * Fetch the json from the file.
  */
-function openDb(): Promise<IDb> {
+export function openDb(): Promise<IDb> {
   return jsonfile.readFile(__dirname + '/' + DB_FILE_NAME) as Promise<IDb>;
 }
 
 /**
  * Update the file.
  */
-function saveDb(db: IDb): Promise<void> {
+export function saveDb(db: IDb): Promise<void> {
   return jsonfile.writeFile((__dirname + '/' + DB_FILE_NAME), db);
 }
-
-
-// **** Export default **** //
-
-export default {
-  openDb,
-  saveDb,
-} as const;

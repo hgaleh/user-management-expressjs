@@ -1,7 +1,7 @@
 import {HttpStatusCodes} from '@src/constants/http-status-codes';
 
-import UserService from '@src/services/UserService';
-import User, { IUser } from '@src/models/User';
+import {_delete as del, addOne, search, updateOne} from '@src/services/user-service';
+import { IUser, isUser } from '@src/models/user';
 import { IReq, IRes } from '../other/express/misc';
 import { Router } from 'express';
 import jetValidator from 'jet-validator';
@@ -16,7 +16,7 @@ export const userRouter = Router();
 userRouter.get(
   '/search',
   async function(req: IReq, res: IRes) {
-    const users = await UserService.search(req.query);
+    const users = await search(req.query);
     return res.status(HttpStatusCodes.OK).json({ users });
   }
 );
@@ -24,10 +24,10 @@ userRouter.get(
 // Add one user
 userRouter.post(
   '/add',
-  validate(['user', User.isUser]),
+  validate(['user', isUser]),
   async function(req: IReq<{user: IUser}>, res: IRes) {
     const { user } = req.body;
-    await UserService.addOne(user);
+    await addOne(user);
     return res.status(HttpStatusCodes.CREATED).end();
   }
 );
@@ -35,10 +35,10 @@ userRouter.post(
 // Update one user
 userRouter.put(
   '/update',
-  validate(['user', User.isUser]),
+  validate(['user', isUser]),
   async function(req: IReq<{user: IUser}>, res: IRes) {
     const { user } = req.body;
-    await UserService.updateOne(user);
+    await updateOne(user);
     return res.status(HttpStatusCodes.OK).end();
   }
 );
@@ -49,7 +49,7 @@ userRouter.delete(
   validate(['id', 'number', 'params']),
   async function(req: IReq, res: IRes) {
     const id = +req.params.id;
-    await UserService.delete(id);
+    await del(id);
     return res.status(HttpStatusCodes.OK).end();
   }
 );

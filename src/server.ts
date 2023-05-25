@@ -21,7 +21,7 @@ import { RouteError } from '@src/other/classes';
 
 // **** Variables **** //
 
-const app = express();
+export const app = express();
 
 
 // **** Setup **** //
@@ -61,7 +61,3 @@ app.use((
   }
   return res.status(status).json({ error: err.message });
 });
-
-// **** Export default **** //
-
-export default app;
