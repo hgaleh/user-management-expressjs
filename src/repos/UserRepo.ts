@@ -1,7 +1,7 @@
 import { IUser } from '@src/models/User';
 import { getRandomInt } from '@src/util/misc';
 import orm from './MockOrm';
-
+import { IQueryUser } from '@src/routes/types/types';
 
 // **** Functions **** //
 
@@ -30,13 +30,17 @@ async function persists(id: number): Promise<boolean> {
   }
   return false;
 }
-
 /**
  * Get all users.
  */
-async function getAll(): Promise<IUser[]> {
+async function search(query: IQueryUser): Promise<IUser[]> {
   const db = await orm.openDb();
-  return db.users;
+  return db.users.filter(user => {
+    return (!query.email || user.email.includes(query.email)) &&
+            (!query.firstName || user.firstName.includes(query.firstName)) &&
+            (!query.lastName || user.lastName.includes(query.lastName)) &&
+            (!query.phone || user.phone.includes(query.phone));
+  });
 }
 
 /**
@@ -81,7 +85,7 @@ async function delete_(id: number): Promise<void> {
 export default {
   getOne,
   persists,
-  getAll,
+  search,
   add,
   update,
   delete: delete_,

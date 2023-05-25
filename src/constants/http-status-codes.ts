@@ -1,13 +1,4 @@
-/* eslint-disable max-len */
-/**
- * This file was copied from here: https://gist.github.com/scokmen/f813c904ef79022e84ab2409574d1b45
- */
-
-/**
- * Hypertext Transfer Protocol (HTTP) response status codes.
- * @see {@link https://en.wikipedia.org/wiki/List_of_HTTP_status_codes}
- */
-enum HttpStatusCodes {
+export enum HttpStatusCodes {
 
     /**
      * The server has received the request headers and the client should proceed to send the request body
@@ -382,5 +373,3 @@ enum HttpStatusCodes {
      */
     NETWORK_AUTHENTICATION_REQUIRED = 511
 }
-
-export default HttpStatusCodes;

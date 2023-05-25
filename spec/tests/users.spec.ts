@@ -6,7 +6,7 @@ import app from '@src/server';
 
 import UserRepo from '@src/repos/UserRepo';
 import User from '@src/models/User';
-import HttpStatusCodes from '@src/constants/HttpStatusCodes';
+import {HttpStatusCodes} from '@src/constants/http-status-codes';
 import { USER_NOT_FOUND_ERR } from '@src/services/UserService';
 import FullPaths from '@src/routes/constants/FullPaths';
 

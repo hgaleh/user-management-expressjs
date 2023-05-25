@@ -1,11 +1,4 @@
-/**
- * Environments variables declared here.
- */
-
-/* eslint-disable node/no-process-env */
-
-
-export default {
+export const envVars = {
   NodeEnv: (process.env.NODE_ENV ?? ''),
   Port: (process.env.PORT ?? 0),
   CookieProps: {
@@ -25,4 +18,4 @@ export default {
     Secret: (process.env.JWT_SECRET ??  ''),
     Exp: (process.env.COOKIE_EXP ?? ''), // exp at the same time as the cookie
   },
-} as const;
+};

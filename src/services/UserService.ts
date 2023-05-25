@@ -1,8 +1,8 @@
 import UserRepo from '@src/repos/UserRepo';
 import { IUser } from '@src/models/User';
 import { RouteError } from '@src/other/classes';
-import HttpStatusCodes from '@src/constants/HttpStatusCodes';
-
+import {HttpStatusCodes} from '@src/constants/http-status-codes';
+import { IQueryUser } from '@src/routes/types/types';
 
 // **** Variables **** //
 
@@ -14,8 +14,8 @@ export const USER_NOT_FOUND_ERR = 'User not found';
 /**
  * Get all users.
  */
-function getAll(): Promise<IUser[]> {
-  return UserRepo.getAll();
+function search(query: IQueryUser): Promise<IUser[]> {
+  return UserRepo.search(query);
 }
 
 /**
@@ -59,7 +59,7 @@ async function _delete(id: number): Promise<void> {
 // **** Export default **** //
 
 export default {
-  getAll,
+  search: search,
   addOne,
   updateOne,
   delete: _delete,

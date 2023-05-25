@@ -13,8 +13,10 @@ export enum UserRoles {
 
 export interface IUser {
   id: number;
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
+  phone: string;
   pwdHash?: string;
   role?: UserRoles;
 }
@@ -33,16 +35,20 @@ export interface ISessionUser {
  * Create new User.
  */
 function new_(
-  name?: string,
+  firstName?: string,
+  lastName?: string,
   email?: string,
+  phone?: string,
   role?: UserRoles,
   pwdHash?: string,
   id?: number, // id last cause usually set by db
 ): IUser {
   return {
     id: (id ?? -1),
-    name: (name ?? ''),
+    firstName: (firstName ?? ''),
+    lastName: (lastName ?? ''),
     email: (email ?? ''),
+    phone: (phone ?? ''),
     role: (role ?? UserRoles.Standard),
     pwdHash: (pwdHash ?? ''),
   };
@@ -58,7 +64,7 @@ function from(param: object): IUser {
   }
   // Get user instance
   const p = param as IUser;
-  return new_(p.name, p.email, p.role, p.pwdHash, p.id);
+  return new_(p.firstName, p.lastName, p.email, p.phone, p.role, p.pwdHash, p.id);
 }
 
 /**
@@ -70,7 +76,9 @@ function isUser(arg: unknown): boolean {
     typeof arg === 'object' &&
     'id' in arg &&
     'email' in arg &&
-    'name' in arg &&
+    'firstName' in arg &&
+    'lastName' in arg &&
+    'phone' in arg &&
     'role' in arg
   );
 }
